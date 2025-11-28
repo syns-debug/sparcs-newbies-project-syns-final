@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: community_mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: sparcsnewbies
+      MYSQL_DATABASE: db
+      MYSQL_USER: community_user
+      MYSQL_PASSWORD: sparcsnewbies
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./Back-End/scripts:/docker-entrypoint-initdb.d
+    command: --default-authentication-plugin=mysql_native_password --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+
+volumes:
+  mysql_data:
