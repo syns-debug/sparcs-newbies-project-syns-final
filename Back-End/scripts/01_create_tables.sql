@@ -1,5 +1,4 @@
--- Users
-CREATE TABLE IF NOT EXISTS users (
+CREATE TABLE users (
     user_id INT PRIMARY KEY AUTO_INCREMENT,
     username VARCHAR(50) UNIQUE NOT NULL,
     password VARCHAR(255) NOT NULL,
@@ -9,8 +8,7 @@ CREATE TABLE IF NOT EXISTS users (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
--- Boards
-CREATE TABLE IF NOT EXISTS boards (
+CREATE TABLE boards (
     board_id INT PRIMARY KEY AUTO_INCREMENT,
     board_name VARCHAR(100) NOT NULL,
     board_type VARCHAR(50) DEFAULT 'general',
@@ -18,8 +16,7 @@ CREATE TABLE IF NOT EXISTS boards (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Posts
-CREATE TABLE IF NOT EXISTS posts (
+CREATE TABLE posts (
     post_id INT PRIMARY KEY AUTO_INCREMENT,
     user_id INT NOT NULL,
     board_id INT,
@@ -33,8 +30,7 @@ CREATE TABLE IF NOT EXISTS posts (
     FOREIGN KEY (board_id) REFERENCES boards(board_id) ON DELETE SET NULL
 );
 
--- Comments
-CREATE TABLE IF NOT EXISTS comments (
+CREATE TABLE comments (
     comment_id INT PRIMARY KEY AUTO_INCREMENT,
     post_id INT NOT NULL,
     user_id INT NOT NULL,
@@ -44,8 +40,7 @@ CREATE TABLE IF NOT EXISTS comments (
     FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
 );
 
--- Likes
-CREATE TABLE IF NOT EXISTS likes (
+CREATE TABLE likes (
     like_id INT PRIMARY KEY AUTO_INCREMENT,
     post_id INT NOT NULL,
     user_id INT NOT NULL,
@@ -55,8 +50,7 @@ CREATE TABLE IF NOT EXISTS likes (
     FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
 );
 
--- Bookmarks
-CREATE TABLE IF NOT EXISTS bookmarks (
+CREATE TABLE bookmarks (
     bookmark_id INT PRIMARY KEY AUTO_INCREMENT,
     post_id INT NOT NULL,
     user_id INT NOT NULL,
@@ -66,8 +60,7 @@ CREATE TABLE IF NOT EXISTS bookmarks (
     FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
 );
 
--- Follows
-CREATE TABLE IF NOT EXISTS follows (
+CREATE TABLE follows (
     follow_id INT PRIMARY KEY AUTO_INCREMENT,
     follower_id INT NOT NULL,
     following_id INT NOT NULL,
@@ -76,3 +69,8 @@ CREATE TABLE IF NOT EXISTS follows (
     FOREIGN KEY (follower_id) REFERENCES users(user_id) ON DELETE CASCADE,
     FOREIGN KEY (following_id) REFERENCES users(user_id) ON DELETE CASCADE
 );
+"
+INSERT INTO boards (board_name, board_type, description) VALUES 
+('신프 list', 'general', '신입생 프로젝트 게시판'),
+('Dump list', 'general', '자유 게시판');
+"
